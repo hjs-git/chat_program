@@ -1,0 +1,30 @@
+# 1 注册到注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:2100/eureka/ #注册中心地址
+  instance:
+    prefer-ip-address: true # 使用ip地址注册
+    instance-id: chat_authority_service  #指定服务的id
+server:
+  port: 7010
+spring:
+  application:
+    name: chat_authority_service
+#  连接池配置
+  datasource:
+    url: jdbc:mysql://106.14.224.239:3306/sakila?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource  # 使用druid连接池
+
+#时间戳统一转换
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+#  配置 mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:com/chat/mapper/*Mapper.xml   # 扫描xml文件
+  type-aliases-package: com.chat.domain,com.chat.query  #配置别名

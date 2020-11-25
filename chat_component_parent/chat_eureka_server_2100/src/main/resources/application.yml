@@ -1,0 +1,13 @@
+# 配置端口
+server:
+  port: 2100
+
+# 配置Eureka 服务端
+eureka:
+  instance:
+    hostname: 127.0.0.1 # 代表本机
+  client:
+    register-with-eureka: false #禁用注册中心向自己注册
+    fetch-registry: false #不让注册中心获取服务的注册列表
+    service-url:
+      defaultZone: http://localhost:2100/eureka/  # 注册地址

@@ -1,0 +1,40 @@
+# 注册到注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:2100/eureka/ #注册中心地址
+  instance:
+    prefer-ip-address: true #使用ip地址注册
+    instance-id: chat_zuul_server  #指定服务的id
+server:
+  port: 2200
+spring:
+  application:
+    name: chat_zuul_server
+
+# 配置 zuul
+zuul:
+  ignored-services: "*"   # 禁止使用服务名字进行访问
+  prefix: "/chat"  #统一的前缀
+  routes: #配置路由，指定服务的访问路径
+#    chat_redis_service: "/redis/**"
+    chat_authority_service: "/authority/**"
+
+  retryable: true #开启重试
+# 负载均衡配置
+ribbon:
+  ConnectTimeout: 200000  # 连接超时时间(ms)
+  ReadTimeout: 200000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 5 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 2 # 同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 300000 # 熔断超时时长：30000ms
+
+OtherPort:
+  no1 : "http://106.14.224.239:8080"
